@@ -1,0 +1,28 @@
+# Port Number
+PORT = 
+
+# DB Credentials
+DB_HOST = 
+DB_USERNAME = 
+DB_PASSWORD = 
+
+# Session Cookie
+SECRET_SESSION = 
+
+# Passport Auth0 credentials
+SECRET= 
+BASEURLTWO= 
+CALLBACKURL = 
+CLIENTID= 
+BASEURL= 
+
+# Jwt key
+JWTkey= 
+
+# Stripe Credentials
+STRIPE_PUBLISH_KEY = 
+STRIPE_SECRET_KEY = 
+
+# SECRET GITHUB
+GIT_CLIENT_ID = 
+GIT_HUB__SECRET_ID = 

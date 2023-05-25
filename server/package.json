@@ -1,0 +1,62 @@
+{
+  "name": "e-commerce-app-2",
+  "version": "1.0.0",
+  "description": "PERN app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --watch routes --watch db app.js",
+    "wdio": "wdio run ./wdio.conf.js",
+    "dev": "nodemon -r dotenv/config app.js",
+    "db:create": "sequelize-cli db:create",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:g:migration": "sequelize-cli migration:generate --name",
+    "db:g:seed": "sequelize-cli seed:generate --name",
+    "db:seeds": "sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+  },
+  "keywords": [
+    "React",
+    "Express",
+    "Javascript"
+  ],
+  "author": "Andres",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "helmet": "^7.0.0",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-auth0": "^1.4.3",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.12",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.31.1",
+    "stripe": "^12.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "@babel/register": "^7.21.0",
+    "@wdio/cli": "^8.10.0",
+    "@wdio/local-runner": "^8.10.0",
+    "@wdio/mocha-framework": "^8.10.0",
+    "@wdio/spec-reporter": "^8.10.0",
+    "chai": "^4.3.7",
+    "chromedriver": "^113.0.0",
+    "ejs": "^3.1.9",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sequelize-cli": "^6.6.0",
+    "wdio-chromedriver-service": "^8.1.1"
+  }
+}
