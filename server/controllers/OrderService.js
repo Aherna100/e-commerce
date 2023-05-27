@@ -1,12 +1,14 @@
 const { orderDetails, Orders, Product } = require('../models');
 const createError = require('http-errors');
+const { Op } = require("sequelize");
 
 const createOrder = async (data) => {
     try {
         const { customerId } = data;
 
         const order = await Orders.create({
-            customerId
+            customerId,
+            orderStatus: "progress"
         });
 
         return order;
@@ -17,9 +19,15 @@ const createOrder = async (data) => {
 
 const addItemCart = async (id, data) => {
     try {
-        const orderId = await getOrderBycId(id);
+        let response = await getOrderBycId(id);
+        if (!response) {
+            response = await Orders.create({
+                customerId: id,
+                orderStatus: "progress"
+            });
+        }
         const newItem = await orderDetails.create({
-            orderId: orderId.dataValues.id, ...data
+            orderId: response.dataValues.id, ...data
         });
         return newItem;
     } catch (err) {
@@ -49,7 +57,10 @@ const getOrderBycId = async (data) => {
     try {
         const order = await Orders.findOne({
             where: {
-                customerId: data
+                [Op.and]: [
+                    { customerId: data },
+                    { orderStatus: "progress" }
+                ]
             },
             include: orderDetails
         });
@@ -91,19 +102,18 @@ const deleteItem = async (data) => {
     }
 }
 
-// const updateOrder = async (data) => {
-//     try {
-//         const { orderId, quantity } = data;
-//         const order = await orderDetails.update({ quantity }, {
-//             where: {
-//                 orderId
-//             }
-//         });
-//         return order;
-//     } catch (err) {
-//         throw createError(500, err);
-//     }
-// }
+const updateOrderStatus = async (orderId) => {
+    try {
+        const order = await Orders.update({ orderStatus: "complete" }, {
+            where: {
+                id: orderId
+            }
+        });
+        return order;
+    } catch (err) {
+        throw createError(500, err);
+    }
+}
 
 const updateItem = async (data) => {
     try {
@@ -127,6 +137,8 @@ module.exports = {
     deleteOrder,
     updateItem,
     deleteItem,
+
+    updateOrderStatus,
 
     addItemCart
 }

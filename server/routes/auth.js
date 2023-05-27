@@ -119,7 +119,7 @@ module.exports = (app, passport) => {
     // });
 
     router.get('/current-session', (req, res) => {
-        passport.authenticate('jwt', (err, user) => {
+        passport.authenticate('jwt', { session: false }, (err, user) => {
             if (err) {
                 res.status(401).send(false);
             } else if (req.isAuthenticated()) {

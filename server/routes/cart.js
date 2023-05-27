@@ -31,6 +31,4 @@ module.exports = (app, passport) => {
             res.status(400).send({ error: error.message });
         }
     });
-
-
 }

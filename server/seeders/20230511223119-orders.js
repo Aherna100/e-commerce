@@ -13,6 +13,7 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('Orders', [{
+      id: 1,
       customerId: 1,
       createdAt: new Date(),
       updatedAt: new Date()

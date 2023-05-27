@@ -4,7 +4,7 @@ const router = express.Router();
 
 module.exports = (app, passport) => {
     const jwtRequired = passport.authenticate('jwt', { session: false });
-    app.use('/api/order', jwtRequired, router);
+    app.use('/api/order', router);
 
     // Get order by customer Id
 
@@ -35,12 +35,6 @@ module.exports = (app, passport) => {
         res.status(200).send(response);
     });
 
-    // router.delete('/:id', async (req, res) => {
-    //     const { id } = req.params;
-    //     await controllers.deleteOrder(id)
-    //         .then(() => res.sendStatus(200));
-    // });
-
     router.delete('/:itemId', async (req, res) => {
         const { itemId } = req.params;
         const { id } = req.user;
@@ -52,6 +46,12 @@ module.exports = (app, passport) => {
         const { orderId } = req.params;
         const { quantity, productId } = req.body;
         await controllers.updateItem({ orderId, productId, quantity })
+            .then(() => res.sendStatus(200));
+    });
+
+    router.put('/', async (req, res) => {
+        const { orderId } = req.body;
+        await controllers.updateOrderStatus(orderId)
             .then(() => res.sendStatus(200));
     });
 }
